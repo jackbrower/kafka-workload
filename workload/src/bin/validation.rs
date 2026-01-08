@@ -6,6 +6,7 @@ use antithesis_kafka_workload::{
         message_integrity::MessageIntegrityValidator,
         producer_idempotence::ProducerIdempotenceValidator,
         producer_message_ordering::ProducerMessageOrderingValidator, workload_log::WorkloadLog,
+        non_empty_message_key::NonEmptyMessageKeyValidator,
     },
 };
 use std::{
@@ -21,6 +22,7 @@ fn validate_workload(workload_log_filename: PathBuf) {
         Box::<ConsumerMessageOrderingValidator>::default(),
         Box::<ApplicationMessagePartitioningValidator>::default(),
         Box::<MessageIntegrityValidator>::default(),
+         Box::<NonEmptyMessageKeyValidator>::default(),
     ];
     let log_validator = LogValidator::new(validators);
     let workload_log = WorkloadLog::new(&workload_log_filename, log_validator).unwrap();

@@ -89,6 +89,9 @@ services:
     container_name: workload
     volumes:
       - ./workload-config.json:/app/workload-config.json
+      - ./logs:/app/logs
+    environment:
+      ANTITHESIS_SDK_LOCAL_OUTPUT: /app/logs/assertions.json
     networks:
       - cluster-net
     depends_on:
